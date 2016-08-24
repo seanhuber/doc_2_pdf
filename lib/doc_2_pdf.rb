@@ -1,5 +1,3 @@
-require "doc_2_pdf/version"
-
-module Doc2Pdf
-  # Your code goes here...
-end
+require 'libreconv'
+require 'doc_2_pdf/version'
+require 'doc_2_pdf/doc_pdf'

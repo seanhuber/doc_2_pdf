@@ -1,41 +1,49 @@
-# Doc2Pdf
+doc_2_pdf
+==============
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/doc_2_pdf`. To experiment with that code, run `bin/console` for an interactive prompt.
+`doc_2_pdf` converts a folder structure containing `.doc`/`.docx` files into a folder structure of .pdf files
 
-TODO: Delete this and the text above, and describe your gem
 
-## Installation
+Requirements and Dependencies
+-----------------------------
 
-Add this line to your application's Gemfile:
+Developed/Tested with Ruby version 2.3, but it should work with any version >= 1.9.  `.doc`/`.docx` are converted to `.pdf` through the `libreconv` gem which depends on Libre Office.
+
+
+Installation
+-----------------------------
+
+Add to your `Gemfile`:
 
 ```ruby
-gem 'doc_2_pdf'
+gem 'doc_2_pdf', '~> 1.0'
 ```
 
-And then execute:
 
-    $ bundle
+Usage
+-----------------------------
 
-Or install it yourself as:
+First, configure `DocPdf`:
 
-    $ gem install doc_2_pdf
+```ruby
+DocPdf.configure(
+  doc_dir: '/some/path/with/doc/files', # required
+  pdf_dir: '/where/to/save/pdf/files'   # required
+)
+```
 
-## Usage
+To generate all docs in `doc_dir`, execute `.convert!`:
 
-TODO: Write usage instructions here
+```ruby
+DocPdf.convert! do |pdf_path|
+  puts "Created pdf file: #{pdf_path}"
+end
+```
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/doc_2_pdf.
+`convert!` optionally accepts a code block with one argument.  This argument (`pdf_path` in the above example) will be a string representing the path of the newly created pdf relative to `pdf_dif` defined at configuration.  The folder structure `pdf_dir` will be identical to that of `doc_dir` but for every `.doc`/`.dox` file there will instead be a `.pdf` file with the same name.
 
 
-## License
+License
+-----------------------------
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+MIT-LICENSE.
